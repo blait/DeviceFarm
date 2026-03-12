@@ -1,0 +1,11 @@
+{
+    "project_arn": "",
+    "target_url": "https://www.naver.com",
+    "fps_duration_seconds": 3,
+    "session_expires_seconds": 300,
+    "browsers": [
+        {"browserName": "chrome", "browserVersion": "latest"},
+        {"browserName": "firefox", "browserVersion": "latest"},
+        {"browserName": "MicrosoftEdge", "browserVersion": "latest"}
+    ]
+}
