@@ -172,7 +172,48 @@ MicrosoftEdge 65           64           2144       0
 
 ### 4.3 FPS 측정 원리
 
-브라우저의 `requestAnimationFrame` API를 사용합니다. 브라우저가 화면을 다시 그릴 때마다 콜백이 호출되며, 설정된 시간(기본 3초) 동안 호출 횟수를 세어 FPS를 계산합니다.
+#### requestAnimationFrame이란?
+
+`requestAnimationFrame`은 브라우저가 제공하는 JavaScript API로, **"다음에 화면을 다시 그릴 때 이 함수를 실행해줘"** 라고 브라우저에 요청하는 것입니다.
+
+브라우저는 화면을 초당 60번(60Hz 모니터 기준) 다시 그리는데, 매번 그리기 직전에 등록된 콜백 함수를 호출합니다. 이 특성을 이용하면 실제로 화면이 몇 번 갱신되는지 셀 수 있습니다.
+
+```
+모니터 주사율 60Hz인 경우:
+
+1초에 화면을 60번 그림
+→ requestAnimationFrame 콜백도 60번 호출됨
+→ FPS = 60
+
+브라우저가 무거운 작업으로 버벅이면:
+→ 1초에 화면을 30번만 그림
+→ 콜백도 30번만 호출됨
+→ FPS = 30 (프레임 드롭 발생)
+```
+
+#### 측정 방식
+
+설정된 시간(기본 3초) 동안 콜백 호출 횟수를 세어 FPS를 계산합니다.
+
+```javascript
+let frames = 0;
+let start = performance.now();
+
+function count() {
+    frames++;                              // 프레임 카운트
+    if (performance.now() - start < 3000)  // 3초 동안
+        requestAnimationFrame(count);      // 다음 프레임에 다시 호출
+    else
+        console.log(frames / 3);           // FPS = 총 프레임 / 초
+}
+requestAnimationFrame(count);
+```
+
+#### 한계
+
+- GPU 레벨의 정밀한 프레임 타임 측정은 아닙니다
+- 브라우저 탭이 비활성 상태이면 호출 빈도가 낮아져 부정확해질 수 있습니다
+- 브라우저 간 **상대적 성능 비교** 용도로 활용하는 것을 권장합니다
 
 ---
 
