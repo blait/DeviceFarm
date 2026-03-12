@@ -2,6 +2,9 @@
 
 > AWS Device Farm TestGrid를 활용하여 데스크톱 브라우저(Chrome, Firefox, Edge)에서 웹앱의 FPS 및 성능을 측정하는 가이드입니다.
 
+<img width="772" height="610" alt="image" src="https://github.com/user-attachments/assets/0a214a8f-a47d-4dae-807c-67944fbe8fa6" />
+
+
 ---
 
 ## 1. 사전 준비
